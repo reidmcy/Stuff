@@ -1,4 +1,6 @@
+"""Binary tree creation for the character to binary mapping"""
 class node:
+    """Non terminating tree component"""
     def __init__(self, v):
         self.value = v
         self.one = None
@@ -7,6 +9,7 @@ class node:
         return True
 
 class leaf:
+    """Terminating tree component"""
     def __init__(self, l, n):
         self.letter = l
         self.value = n
@@ -14,6 +17,8 @@ class leaf:
         return False
 
 def maketree(llst, nlst):
+    """Takes in two lists of equal length, one with charcters the other with
+    their number of occurnces and creates a binary tree"""
     ndlst = []
     for x in range(0, len(llst)):
         ndlst.append(leaf(llst[x], nlst[x]))
@@ -26,7 +31,9 @@ def maketree(llst, nlst):
         ndlst.append(brc)
     return ndlst[0]
 
-def makestrings(nd, sdct, s):
+def makestrings(nd, sdct, s = ''):
+    """Adds the values from the tree to the dict, the s term is for
+     the recursion"""
     if nd.isnode():
         s0 = s + str(0)
         s1 = s + str(1)
@@ -34,7 +41,10 @@ def makestrings(nd, sdct, s):
         makestrings(nd.zero, sdct, s1)
     else:
         sdct[nd.letter] = s
+
 def lsttostring(llst, nlst):
+    """takes in two lists one of characters and the other of their occurnces
+    and produces a dict of their Huffman code"""
     dct = {}
-    makestrings(maketree(llst, nlst), dct, '')
+    makestrings(maketree(llst, nlst), dct)
     return dct
